@@ -44,7 +44,29 @@ const consoleStringfy = require('./utils/consoleStringfy');
   })
   consoleStringfy(hasWhere)
   
-
+  //UPDATE
+  await Processos.update({descricao: 'Circo pegando fogo'}, {
+    where: {
+      tipo: 'tributário'
+    }
+  })
+  consoleStringfy(await Processos.findAll())
   
+  //DELETE
+  await Processos.destroy({
+    where: {
+      id: 1
+    }
+  })
+  consoleStringfy(await Processos.findAll())
+
+  await Processos.destroy({
+    // where: {
+    //   id: 1
+    // },
+    truncate: true
+  })
+  consoleStringfy(await Processos.findAll())
+
 })()
 

@@ -1,10 +1,11 @@
 # Estudos do Sequelize
 
 ## Inicialização
-
 ```shell
   # instalar dependencias
   npm install
+
+  # configurar o .env com as configurações do MySQL que será utilizado
 
   # inicializar o sequelize
   node index.js
@@ -12,102 +13,116 @@
 
 ## Foi utilizado:
 
+- MySQL instalado,
 - sequelize,
 - sequelize-cli,
-- dotenv
+- dotenv,
+- mysql2
 
-- ## acesso ao banco de dados
+---
 
-  - forma de string de conexao
-  - forma por parametros de cada dado da conexao
+## Acesso ao banco de dados
 
-- ## uso de models
+- forma de string de conexao
+- forma por parametros de cada dado da conexao
 
-  - forma com declaração de variavel
-  - forma da classe que extende a classe Model
-  - As tabelas criadas no banco pelas models ficam no plural, para desativar esse modo é nessário adicionar em "outras opções" o seguinte atributo: `freezeTableName: true`
+## Uso de models
 
-- ## Instância de um registro:
+- forma com declaração de variavel
+- forma da classe que extende a classe Model
+- As tabelas criadas no banco pelas models ficam no plural, para desativar esse modo é nessário adicionar em "outras opções" o seguinte atributo: `freezeTableName: true`
 
-  - Insert:
+---
 
-    - pode ser utilizado o `[nome da model].build({chave:valor})`, porém isto não persiste no banco, apenas fica na aplicação
-    - para persistir é utilizado `[nome da model].build({chave:valor}).save()`
-    - a maneira mais fácil é utilizar `[nome da model].create({chave:valor})`
+## Instância de um registro (tempo de execução sem persistir o dado no BD):
 
-  - update:
+- Insert:
 
-    - Pegar a instancia do registro e alterar o atributo dentro dela e depois realizar o `[nome da model].build({chave:valor}).save()` novamente.
+  - pode ser utilizado o `[nome da model].build({chave:valor})`, porém isto não persiste no banco, apenas fica na aplicação
+  - para persistir é utilizado `[nome da model].build({chave:valor}).save()`
+  - a maneira mais fácil é utilizar `[nome da model].create({chave:valor})`
 
-  - delete:
+- update:
 
-    - é utilizado o comando `destroy()` onde fica o `save()`
+  - Pegar a instancia do registro e alterar o atributo dentro dela e depois realizar o `[nome da model].build({chave:valor}).save()` novamente.
 
-  - reload
-    - caso durante o tempo de execução esteja manipulando um dado mas queira voltar para o que está persistido no BD, basta passar o comando `reload()`
+- delete:
 
-- ## Comandos para CRUD:
+  - é utilizado o comando `destroy()` onde fica o `save()`
 
-  - ### insert
+- reload
+  - caso durante o tempo de execução esteja manipulando um dado mas queira voltar para o que está persistido no BD, basta passar o comando `reload()`
 
-    - `[nome da model].create({chave:valor})`
+---
 
-  - ### Select
+## Comandos para CRUD:
 
-    - é utilizado a função `[nome da model].findAll()`
-    - caso queira apenas algumas colunas é utilizado
+- ### Insert
 
-    ```javascript
-      [nome da model].findAll({
-        attributes: [nome da coluna, nome da coluna]
-      })
-    ```
+  - `[nome da model].create({chave:valor})`
 
-    - Para nomear uma coluna pode ser utilizado um array aninhado
+- ### Select
 
-    ```javascript
-      [nome da model].findAll({
-        attributes: [nome da coluna, [nome da coluna, alias dela]]
-      })
-    ```
+  - é utilizado a função `[nome da model].findAll()`
+  - caso queira apenas algumas colunas é utilizado
 
-    - Cláusula Where
+  ```javascript
+    [nome da model].findAll({
+      attributes: [nome da coluna, nome da coluna]
+    })
+  ```
 
-    ```javascript
-      [nome da model].findAll({
+  - Para nomear uma coluna pode ser utilizado um array aninhado
+
+  ```javascript
+    [nome da model].findAll({
+      attributes: [nome da coluna, [nome da coluna, alias dela]]
+    })
+  ```
+
+  - Cláusula Where
+
+  ```javascript
+    [nome da model].findAll({
+      where: {
+        [nome da coluna]: [valor que deseja]
+      }
+    })
+  ```
+
+  - para utilizar operadores como like, >, not, or, and, entre outros é necessário ver a [**lib op do sequelize**](https://sequelize.org/master/manual/model-querying-basics.html#operators)
+
+- ### Update
+
+  ```JavaScript
+    [nome da model].update(
+      {[coluna q vai Alterar]:[valor a ser alterado]},
+      {
         where: {
-          [nome da coluna]: [valor que deseja]
+          [coluna de identificação]: [valor de identificação]
         }
-      })
-    ```
+      }
+    )
+  ```
 
-    - para utilizar operadores como like, >, not, or, and, entre outros é necessário ver a [**lib op do sequelize**](https://sequelize.org/master/manual/model-querying-basics.html#operators)
+- ### Delete
 
-    - ## Update
-      ```JavaScript
-        [nome da model].update(
-          {[coluna q vai Alterar]:[valor a ser alterado]}, 
-          {
-            where: {
-              [coluna de identificação]: [valor de identificação]
-            }
-          }
-        )
-      ```
+  - Para realizar a operação delete
 
-    - ## Delete
-      - Para realizar a operação delete
-      ```JavaScript
-        [nome da model].destroy({
-          where: {
-            [coluna de identificação]: [valor de identificação]
-          }
-        })
-      ```
-      - tambem pode realizar a operação truncate (mais rápido, porém não tem como realizar rollback depois)
-      ```JavaScript
-        [nome da model].destroy({
-          truncate: true
-        })
-      ```
-  - caso deseje escrever o sql, pode ser feito as [__Raw Querys__](https://sequelize.org/master/manual/raw-queries.html)  
+  ```JavaScript
+    [nome da model].destroy({
+      where: {
+        [coluna de identificação]: [valor de identificação]
+      }
+    })
+  ```
+
+  - tambem pode realizar a operação truncate (mais rápido, porém não tem como realizar rollback depois) **Vai apagar os registros de toda a tabela**
+
+  ```JavaScript
+    [nome da model].destroy({
+      truncate: true
+    })
+  ```
+
+- caso deseje escrever o sql, pode ser feito as [**Raw Querys**](https://sequelize.org/master/manual/raw-queries.html)
