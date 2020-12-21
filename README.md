@@ -128,5 +128,16 @@
       truncate: true
     })
   ```
+---
 
 - caso deseje escrever o sql, pode ser feito as [**Raw Querys**](https://sequelize.org/master/manual/raw-queries.html)
+
+---
+
+## Migrations
+- é necessário utilizar o sequelize-cli 
+```
+  npm i --save-dev sequelize-cli 
+```
+- após isso é necessário inicializar ele `npx sequelize-cli init` 
+

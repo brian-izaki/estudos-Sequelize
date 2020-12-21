@@ -1,4 +1,5 @@
 require('dotenv/config');
+const { QueryTypes } = require('sequelize');
 const sequelize = require('./config/database');
 const Processos = require('./models/Processos');
 const consoleStringfy = require('./utils/consoleStringfy');
@@ -12,6 +13,10 @@ const consoleStringfy = require('./utils/consoleStringfy');
     console.error(error);
   };
 
+  // SELECT Raw Querys
+  const data = await sequelize.query("Select * from `USERS`", {type: QueryTypes.SELECT})
+  consoleStringfy(data)
+/*
   // comando muito destrutivo, não é recomendado para produção
   await sequelize.sync({ force: true });
   
@@ -67,6 +72,6 @@ const consoleStringfy = require('./utils/consoleStringfy');
     truncate: true
   })
   consoleStringfy(await Processos.findAll())
-
+*/
 })()
 
