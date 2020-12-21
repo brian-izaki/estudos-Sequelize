@@ -14,9 +14,9 @@ const consoleStringfy = require('./utils/consoleStringfy');
   };
 
   // SELECT Raw Querys
-  const data = await sequelize.query("Select * from `USERS`", {type: QueryTypes.SELECT})
-  consoleStringfy(data)
-/*
+  // const data = await sequelize.query("Select * from `USERS`", {type: QueryTypes.SELECT})
+  // consoleStringfy(data)
+
   // comando muito destrutivo, não é recomendado para produção
   await sequelize.sync({ force: true });
   
@@ -65,13 +65,13 @@ const consoleStringfy = require('./utils/consoleStringfy');
   })
   consoleStringfy(await Processos.findAll())
 
-  await Processos.destroy({
-    // where: {
-    //   id: 1
-    // },
-    truncate: true
-  })
-  consoleStringfy(await Processos.findAll())
-*/
+  // await Processos.destroy({
+  //   // where: {
+  //   //   id: 1
+  //   // },
+  //   truncate: true
+  // })
+  // consoleStringfy(await Processos.findAll())
+
 })()
 
