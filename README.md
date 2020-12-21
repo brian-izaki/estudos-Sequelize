@@ -1,11 +1,16 @@
-# Estudos do Sequelize
+# Estudos do [Sequelize](https://sequelize.org/master/manual/getting-started.html)
+
+## Configurações necessárias:
+
+- Node.js instalado
+- MySQL em máquina local ou remoto,
+- Preencher o .env com os dados relacionados ao BD
 
 ## Inicialização
+
 ```shell
   # instalar dependencias
   npm install
-
-  # configurar o .env com as configurações do MySQL que será utilizado
 
   # inicializar o sequelize
   node index.js
@@ -13,7 +18,6 @@
 
 ## Foi utilizado:
 
-- MySQL instalado,
 - sequelize,
 - sequelize-cli,
 - dotenv,
