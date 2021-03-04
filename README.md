@@ -146,7 +146,7 @@
 - Migration:
   - criar migration `model:generate` para ter um model.
   ```shell
-  npx sequelize-cli model:generate -name [nome da tabela] --attributes [nomes da coluna]:[tipo],[nomes da coluna]:[tipo]
+  npx sequelize-cli model:generate --name [nome da tabela] --attributes [nomes da coluna]:[tipo],[nomes da coluna]:[tipo]
   ```
   - executar migration `db:migrate` para criar tabela de acordo com a model criada.
   ```shell
